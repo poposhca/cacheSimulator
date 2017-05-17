@@ -1,0 +1,16 @@
+#!/bin/bash
+# since Bash v4
+p=8
+mem=16384
+block=128
+as=4
+echo $mem $block $as
+for i in seq{1..1}
+do
+    echo $p
+    ./a.out -ds $mem -is $mem -bs $block -a $as -nw trazas/tex.trace > resultados_2.4/tex_WriteBack_$p
+    ./a.out -ds $mem -is $mem -bs $block -a $as -nw -wt trazas/tex.trace > resultados_2.4/tex_WriteThrough_$p
+    ./a.out -ds $mem -is $mem -bs $block -a $as -wb trazas/tex.trace > resultados_2.4/tex_WriteAllocate_$p
+    ./a.out -ds $mem -is $mem -bs $block -a $as -wb -nw trazas/tex.trace > resultados_2.4/tex_WriteNoAllocate_$p
+    p=$(($p+1))
+done
